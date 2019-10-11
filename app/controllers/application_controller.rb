@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def europe_top
     Rails.cache.fetch('europe', expires_in: 5.minutes) do
-      response = Net::HTTP.get(URI('http://87.252.227.224:1988/tv/raceStatus.php'))
+      response = Net::HTTP.get(URI('http://178.124.223.165:1988/tv/raceStatus.php'))
       tops = JSON.parse(response)['records'].find { |r| r['type'].start_with?('TOP Трассы') }['tops']
 
       tops.map { |row| row.slice('name', 'time') }
