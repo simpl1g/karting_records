@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   def root
     @europe_top = europe_top
     @korona_top = korona_top
+    @procup_top = procup_top
   end
 
   private
@@ -23,6 +24,15 @@ class ApplicationController < ActionController::Base
     Rails.cache.fetch('korona', expires_in: 5.minutes) do
       response = Net::HTTP.get(URI('http://178.124.156.40:1988/tv/raceStatus.php'))
       tops = JSON.parse(response)['records'].find { |r| r['type'].start_with?('TOP ТРАССЫ') }['tops']
+
+      tops.map { |row| row.slice('name', 'time') }
+    end
+  end
+
+  def procup_top
+    Rails.cache.fetch('procup', expires_in: 5.minutes) do
+      response = Net::HTTP.get(URI('http://178.124.156.40:1988/tv/raceStatus.php'))
+      tops = JSON.parse(response)['records'].find { |r| r['type'].start_with?('PRO Cup (Mojo)') }['tops']
 
       tops.map { |row| row.slice('name', 'time') }
     end

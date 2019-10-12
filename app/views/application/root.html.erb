@@ -33,3 +33,18 @@
     </table>
   </div>
 </div>
+
+<div style="margin-left:50px;float:left;">
+  <h2>Korona PRO CUP</h2>
+  <div>
+    <table>
+      <% @procup_top.each.with_index do |top, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= top['name'] %></td>
+          <td><%= top['time'] %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
